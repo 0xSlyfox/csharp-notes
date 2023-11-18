@@ -99,3 +99,119 @@
         When no access modifier is specified for a class, it defaults to internal.
         Example: class MyClass { ... }
         This means the class is accessible within the same assembly but not from outside.
+
+### Class Examples
+
+public:
+
+    Scenario: Creating a library where certain classes need to be accessed by other applications.
+    Example:
+
+```csharp
+
+public class Logger {
+    public void LogMessage(string message) { ... }
+}
+```
+
+In this scenario, the Logger class and its LogMessage method are accessible to any other class in any assembly that references this library.
+
+private:
+
+    Scenario: Defining internal implementation details of a class that should not be exposed outside the class.
+    Example:
+
+```csharp
+
+public class Account {
+    private double balance;
+
+    public void Deposit(double amount) {
+        balance += amount;
+    }
+}
+```
+
+Here, balance is a private field of the Account class, only accessible within the Account class itself.
+
+protected:
+
+    Scenario: Allowing derived classes to access certain properties or methods, while keeping them hidden from other classes.
+    Example:
+
+```csharp
+
+public class BaseClass {
+    protected int Id { get; set; }
+}
+
+public class DerivedClass : BaseClass {
+    public void DisplayId() {
+        Console.WriteLine(Id);
+    }
+}
+```
+
+In this case, Id is accessible within BaseClass and DerivedClass, but not outside these classes.
+
+internal:
+
+    Scenario: Designing components in a large application that should only be used within the same assembly.
+    Example:
+
+```csharp
+
+internal class InternalHelper {
+    internal void HelpMethod() { ... }
+}
+```
+
+InternalHelper and its method HelpMethod are accessible anywhere within the same assembly but not from other assemblies.
+
+protected internal:
+
+    Scenario: Providing access to certain members of a class both within the same assembly and in derived classes in other assemblies.
+    Example:
+
+```csharp
+
+public class BaseClass {
+    protected internal void SharedMethod() { ... }
+}
+```
+
+SharedMethod can be accessed within BaseClass, its derived classes (even in different assemblies), and other classes in the same assembly.
+
+private protected:
+
+    Scenario: Restricting access to members of a class strictly to derived classes within the same assembly.
+    Example:
+
+```csharp
+
+public class BaseClass {
+    private protected int InternalId { get; set; }
+}
+
+public class DerivedClass : BaseClass {
+    public void DisplayId() {
+        Console.WriteLine(InternalId);
+    }
+}
+```
+
+InternalId can only be accessed within BaseClass and its derived classes, but only if they are in the same assembly.
+
+Default (internal for classes):
+
+    Scenario: Creating classes within a single assembly that should not be exposed to other assemblies.
+    Example:
+
+```csharp
+
+class HelperClass {
+    public void Assist() { ... }
+}
+```
+
+HelperClass is accessible within the same assembly but not accessible to other assemblies.
