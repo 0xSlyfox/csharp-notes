@@ -214,4 +214,36 @@ class HelperClass {
 }
 ```
 
+A Note about private 
+
+Private classes in C# are typically nested within another class and are used to organize code and encapsulate functionality that is only relevant to the containing class. Here's a scenario to illustrate the use of private classes:
+
+Scenario: Suppose you are developing a network scanning tool in C#. You might have a public class NetworkScanner that performs the scanning operation. However, within this class, you might need a helper class to handle specific details like parsing network responses or managing scan sessions. This helper class should not be accessible or even visible to other parts of your application, as its functionality is tightly coupled with the NetworkScanner class.
+
+Example:
+
+```csharp
+
+public class NetworkScanner {
+    // ...
+
+    private class ScanSessionManager {
+        public void StartSession() { ... }
+        public void EndSession() { ... }
+        // Other methods related to managing a scan session
+    }
+
+    public void PerformScan() {
+        ScanSessionManager sessionManager = new ScanSessionManager();
+        sessionManager.StartSession();
+        // Perform scanning logic
+        sessionManager.EndSession();
+    }
+
+    // Other methods of NetworkScanner
+}
+```
+
+In this example, ScanSessionManager is a private nested class within NetworkScanner. It's used for managing the lifecycle of a network scan session. The methods of ScanSessionManager (StartSession, EndSession, etc.) are accessible only within the NetworkScanner class and are not exposed to the outside world. This encapsulation ensures that the internal workings of the network scanning process are hidden, reducing the complexity of the public interface of the NetworkScanner class and preventing misuse or unintended interactions from other parts of the application.
+
 HelperClass is accessible within the same assembly but not accessible to other assemblies.
